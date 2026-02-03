@@ -1,0 +1,11 @@
+ASI_ID,ASI_Title,AIVSS_Primary
+ASI01,Agent Goal Hijack,Agent Goal & Instruction Manipulation
+ASI02,Tool Misuse & Exploitation,Agentic AI Tool Misuse
+ASI03,Identity & Privilege Abuse,Agent Access Control Violation
+ASI04,Agentic Supply Chain Vulnerabilities,Agent Supply Chain & Dependency Risk
+ASI05,Unexpected Code Execution (RCE),Insecure Agent Critical Systems Interaction
+ASI06,Memory & Context Poisoning,Agent Memory & Context Manipulation
+ASI07,Insecure Inter-Agent Communication,Agent Memory & Context Manipulation
+ASI08,Cascading Failures,Agent Cascading Failures
+ASI09,Human-Agent Trust Exploitation,Agent Untraceability
+ASI10,Rogue Agents,Agent Goal & Instruction Manipulation

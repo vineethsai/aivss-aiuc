@@ -1,0 +1,11 @@
+AIVSS Core Risk,Requirements (count),Controls/Evidence (count)
+Agentic AI Tool Misuse,4,9
+Agent Access Control Violation,6,18
+Agent Cascading Failures,7,5
+Agent Orchestration & Multi-Agent Exploitation,0,0
+Agent Identity Impersonation,0,0
+Agent Memory & Context Manipulation,4,4
+Insecure Agent Critical Systems Interaction,3,3
+Agent Supply Chain & Dependency Risk,6,16
+Agent Untraceability,12,63
+Agent Goal & Instruction Manipulation,9,21
