@@ -21,7 +21,6 @@
       <button class="tab active" data-tab="overview">Overview</button>
       <button class="tab" data-tab="sankey">Risk Flow</button>
       <button class="tab" data-tab="matrix">Coverage Matrix</button>
-      <button class="tab" data-tab="verification">Verification</button>
       <button class="tab" data-tab="browse">Browse Data</button>
     </nav>
 
@@ -76,33 +75,6 @@
         <h3>Coverage Gaps Analysis</h3>
         <div id="gapsAnalysis" class="gaps-analysis"></div>
       </div>
-    </section>
-
-    <!-- Tab: Verification -->
-    <section class="tab-content" id="tab-verification">
-      <div class="verify-header">
-        <h3>Interactive Verification Checklist</h3>
-        <p>Review and verify each requirement mapping. Progress is saved locally.</p>
-        <div class="verify-progress">
-          <div class="progress-bar">
-            <div id="verifyProgressBar" class="progress-fill"></div>
-          </div>
-          <span id="verifyProgressText">0 / 0 verified</span>
-        </div>
-        <div class="verify-actions">
-          <button class="btn" id="exportVerifyBtn">Export Verification Report</button>
-          <button class="btn secondary" id="resetVerifyBtn">Reset All</button>
-        </div>
-      </div>
-
-      <div class="verify-filters">
-        <label><input type="radio" name="verifyFilter" value="all" checked> All</label>
-        <label><input type="radio" name="verifyFilter" value="pending"> Pending</label>
-        <label><input type="radio" name="verifyFilter" value="verified"> Verified</label>
-        <label><input type="radio" name="verifyFilter" value="flagged"> Flagged</label>
-      </div>
-
-      <div id="verifyList" class="verify-list"></div>
     </section>
 
     <!-- Tab: Browse Data -->
