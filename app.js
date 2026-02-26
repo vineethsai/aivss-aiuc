@@ -380,128 +380,6 @@
     $('gapsAnalysis').innerHTML = gapsHtml + weakRisks || '<p>No significant gaps identified.</p>';
   }
 
-  // Verification System
-  let verifyState = JSON.parse(localStorage.getItem('aiuc_verify') || '{}');
-
-  function saveVerifyState() {
-    localStorage.setItem('aiuc_verify', JSON.stringify(verifyState));
-  }
-
-  function renderVerification() {
-    const filter = document.querySelector('input[name="verifyFilter"]:checked')?.value || 'all';
-    
-    let items = data.requirements.map(r => ({
-      id: r.RequirementID,
-      title: r.RequirementTitle,
-      principle: r.Principle,
-      primary: r.AIVSS_Primary,
-      secondary: r.AIVSS_Secondary,
-      confidence: r.Confidence,
-      rationale: r.Rationale,
-      reviewPriority: r.Review_Priority
-    }));
-
-    if (filter === 'pending') {
-      items = items.filter(i => !verifyState[i.id]?.status);
-    } else if (filter === 'verified') {
-      items = items.filter(i => verifyState[i.id]?.status === 'ok');
-    } else if (filter === 'flagged') {
-      items = items.filter(i => verifyState[i.id]?.status === 'flag');
-    }
-
-    const verified = Object.values(verifyState).filter(v => v.status === 'ok').length;
-    const total = data.requirements.length;
-    const pct = ((verified / total) * 100).toFixed(0);
-
-    $('verifyProgressBar').style.width = `${pct}%`;
-    $('verifyProgressText').textContent = `${verified} / ${total} verified (${pct}%)`;
-
-    $('verifyList').innerHTML = items.map(item => {
-      const state = verifyState[item.id] || {};
-      return `
-        <div class="verify-item ${state.status === 'ok' ? 'verified' : ''} ${state.status === 'flag' ? 'flagged' : ''}">
-          <div class="verify-status">
-            <button class="verify-btn ${state.status === 'ok' ? 'active-ok' : ''}" 
-                    onclick="setVerifyStatus('${item.id}', 'ok')" title="Mark as Verified">✓</button>
-            <button class="verify-btn ${state.status === 'flag' ? 'active-flag' : ''}" 
-                    onclick="setVerifyStatus('${item.id}', 'flag')" title="Flag for Review">⚑</button>
-          </div>
-          <div class="verify-content">
-            <div class="verify-id">${escapeHtml(item.id)} 
-              <span class="chip ${item.confidence?.toLowerCase()}">${escapeHtml(item.confidence)}</span>
-              <span class="chip">${escapeHtml(item.reviewPriority)}</span>
-            </div>
-            <div class="verify-title">${escapeHtml(item.title)}</div>
-            <div class="verify-mapping">
-              <span class="chip">${escapeHtml(item.principle)}</span>
-              →
-              <span class="chip" style="border-color:${RISK_COLORS[item.primary]}">${escapeHtml(item.primary)}</span>
-              ${item.secondary ? `<span style="color:var(--muted);font-size:11px">+ ${escapeHtml(item.secondary)}</span>` : ''}
-            </div>
-            <div class="verify-rationale">${escapeHtml(item.rationale?.substring(0, 200))}${item.rationale?.length > 200 ? '...' : ''}</div>
-          </div>
-          <div class="verify-actions-item">
-            <textarea class="verify-notes" placeholder="Notes..." 
-                      onchange="setVerifyNotes('${item.id}', this.value)">${escapeHtml(state.notes || '')}</textarea>
-          </div>
-        </div>
-      `;
-    }).join('') || '<p style="text-align:center;color:var(--muted);padding:40px;">No items match current filter.</p>';
-  }
-
-  window.setVerifyStatus = function(id, status) {
-    if (!verifyState[id]) verifyState[id] = {};
-    verifyState[id].status = verifyState[id].status === status ? null : status;
-    saveVerifyState();
-    renderVerification();
-  };
-
-  window.setVerifyNotes = function(id, notes) {
-    if (!verifyState[id]) verifyState[id] = {};
-    verifyState[id].notes = notes;
-    saveVerifyState();
-  };
-
-  function initVerification() {
-    $$('input[name="verifyFilter"]').forEach(input => {
-      input.addEventListener('change', renderVerification);
-    });
-
-    $('resetVerifyBtn').addEventListener('click', () => {
-      if (confirm('Reset all verification progress?')) {
-        verifyState = {};
-        saveVerifyState();
-        renderVerification();
-      }
-    });
-
-    $('exportVerifyBtn').addEventListener('click', exportVerificationReport);
-  }
-
-  function exportVerificationReport() {
-    const report = {
-      generatedAt: new Date().toISOString(),
-      totalRequirements: data.requirements.length,
-      verified: Object.values(verifyState).filter(v => v.status === 'ok').length,
-      flagged: Object.values(verifyState).filter(v => v.status === 'flag').length,
-      items: data.requirements.map(r => ({
-        id: r.RequirementID,
-        title: r.RequirementTitle,
-        mapping: r.AIVSS_Primary,
-        status: verifyState[r.RequirementID]?.status || 'pending',
-        notes: verifyState[r.RequirementID]?.notes || ''
-      }))
-    };
-
-    const blob = new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'verification_report.json';
-    a.click();
-    URL.revokeObjectURL(url);
-  }
-
   // Data Table (Browse tab)
   function buildFilters() {
     const aivss = ["", ...(data.aivss_core_risks || [])];
@@ -721,8 +599,6 @@
     renderASIBridge();
     renderHeatmap();
     renderGaps();
-    initVerification();
-    renderVerification();
     buildFilters();
     wire();
     renderTable();
