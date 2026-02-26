@@ -58,15 +58,21 @@
   // Summary Cards
   function renderCards() {
     const totalReq = data.requirements.length;
+    const mappedReq = data.requirements.filter(r => r.AIVSS_Primary).length;
+    const unmappedReq = totalReq - mappedReq;
     const totalCtrl = data.controls.length;
     const highConf = [...data.requirements, ...data.controls].filter(r => r.Confidence === 'High').length;
-    const okStatus = [...data.requirements, ...data.controls].filter(r => r.Review_Priority === 'OK').length;
 
     $("summaryCards").innerHTML = `
       <div class="card">
-        <h3>Requirements</h3>
+        <h3>Total Requirements</h3>
         <div class="big">${totalReq}</div>
         <div class="small">Across 6 principles</div>
+      </div>
+      <div class="card">
+        <h3>Mapped to AIVSS</h3>
+        <div class="big" style="color:var(--success)">${mappedReq}</div>
+        <div class="small">${unmappedReq} unmapped</div>
       </div>
       <div class="card">
         <h3>Controls/Evidence</h3>
@@ -74,14 +80,9 @@
         <div class="small">Supporting requirements</div>
       </div>
       <div class="card">
-        <h3>High Confidence</h3>
-        <div class="big" style="color:var(--success)">${highConf}</div>
-        <div class="small">${((highConf / (totalReq + totalCtrl)) * 100).toFixed(0)}% of mappings</div>
-      </div>
-      <div class="card">
-        <h3>Verified (OK)</h3>
-        <div class="big" style="color:var(--accent)">${okStatus}</div>
-        <div class="small">${((okStatus / (totalReq + totalCtrl)) * 100).toFixed(0)}% ready for publication</div>
+        <h3>AIVSS Risks Covered</h3>
+        <div class="big" style="color:var(--accent)">${new Set(data.requirements.map(r => r.AIVSS_Primary).filter(Boolean)).size} / 10</div>
+        <div class="small">${(data.meta?.coverage_gaps || []).length} gap(s)</div>
       </div>
     `;
   }
@@ -92,13 +93,12 @@
     const ctrlByRisk = {};
     
     data.requirements.forEach(r => {
-      const risk = r.AIVSS_Primary || 'Unknown';
-      reqByRisk[risk] = (reqByRisk[risk] || 0) + 1;
+      if (r.AIVSS_Primary) reqByRisk[r.AIVSS_Primary] = (reqByRisk[r.AIVSS_Primary] || 0) + 1;
+      if (r.AIVSS_Secondary) reqByRisk[r.AIVSS_Secondary] = (reqByRisk[r.AIVSS_Secondary] || 0) + 1;
     });
     
     data.controls.forEach(c => {
-      const risk = c.AIVSS_Primary || 'Unknown';
-      ctrlByRisk[risk] = (ctrlByRisk[risk] || 0) + 1;
+      if (c.AIVSS_Primary) ctrlByRisk[c.AIVSS_Primary] = (ctrlByRisk[c.AIVSS_Primary] || 0) + 1;
     });
 
     const maxReq = Math.max(...Object.values(reqByRisk), 1);
@@ -194,14 +194,24 @@
 
   // Sankey Diagram
   function renderSankey() {
+    const mappedReqs = data.requirements.filter(r => r.AIVSS_Primary);
     const principles = uniq(data.requirements.map(r => r.Principle).filter(Boolean));
     const risks = data.aivss_core_risks || [];
     
-    // Count flows
+    // Count flows (primary + secondary)
     const flows = {};
-    data.requirements.forEach(r => {
-      const key = `${r.Principle}|${r.AIVSS_Primary}`;
-      flows[key] = (flows[key] || 0) + 1;
+    const riskTotals = {};
+    mappedReqs.forEach(r => {
+      if (r.AIVSS_Primary) {
+        const key = `${r.Principle}|${r.AIVSS_Primary}`;
+        flows[key] = (flows[key] || 0) + 1;
+        riskTotals[r.AIVSS_Primary] = (riskTotals[r.AIVSS_Primary] || 0) + 1;
+      }
+      if (r.AIVSS_Secondary) {
+        const key = `${r.Principle}|${r.AIVSS_Secondary}`;
+        flows[key] = (flows[key] || 0) + 1;
+        riskTotals[r.AIVSS_Secondary] = (riskTotals[r.AIVSS_Secondary] || 0) + 1;
+      }
     });
 
     const nodeHeight = 30;
@@ -214,13 +224,13 @@
     const leftNodes = principles.map((p, i) => ({
       name: p,
       y: 50 + i * (nodeHeight + padding),
-      total: data.requirements.filter(r => r.Principle === p).length
+      total: data.requirements.filter(r => r.Principle === p && r.AIVSS_Primary).length
     }));
 
     const rightNodes = risks.map((r, i) => ({
       name: r,
       y: 50 + i * (nodeHeight + padding * 0.8),
-      total: data.requirements.filter(req => req.AIVSS_Primary === r).length
+      total: riskTotals[r] || 0
     }));
 
     // Generate paths
@@ -297,7 +307,7 @@
     const principles = uniq(data.requirements.map(r => r.Principle).filter(Boolean));
     const risks = data.aivss_core_risks || [];
     
-    // Build matrix
+    // Build matrix (count both primary and secondary)
     const matrix = {};
     principles.forEach(p => {
       matrix[p] = {};
@@ -307,6 +317,9 @@
     data.requirements.forEach(r => {
       if (r.Principle && r.AIVSS_Primary) {
         matrix[r.Principle][r.AIVSS_Primary] = (matrix[r.Principle][r.AIVSS_Primary] || 0) + 1;
+      }
+      if (r.Principle && r.AIVSS_Secondary) {
+        matrix[r.Principle][r.AIVSS_Secondary] = (matrix[r.Principle][r.AIVSS_Secondary] || 0) + 1;
       }
     });
 
@@ -362,10 +375,11 @@
       </div>
     `).join('');
 
-    // Find weakly covered risks
+    // Find weakly covered risks (count primary + secondary)
     const riskCounts = {};
     data.requirements.forEach(r => {
-      riskCounts[r.AIVSS_Primary] = (riskCounts[r.AIVSS_Primary] || 0) + 1;
+      if (r.AIVSS_Primary) riskCounts[r.AIVSS_Primary] = (riskCounts[r.AIVSS_Primary] || 0) + 1;
+      if (r.AIVSS_Secondary) riskCounts[r.AIVSS_Secondary] = (riskCounts[r.AIVSS_Secondary] || 0) + 1;
     });
     
     const weakRisks = Object.entries(riskCounts)
@@ -377,7 +391,16 @@
         </div>
       `).join('');
 
-    $('gapsAnalysis').innerHTML = gapsHtml + weakRisks || '<p>No significant gaps identified.</p>';
+    // Show unmapped requirements count
+    const unmappedCount = data.requirements.filter(r => !r.AIVSS_Primary).length;
+    const unmappedHtml = unmappedCount > 0 ? `
+      <div class="gap-card">
+        <h4><span class="gap-icon">📋</span> ${unmappedCount} Unmapped Requirements</h4>
+        <p>${unmappedCount} of ${data.requirements.length} AIUC-1 requirements were not mapped to any AIVSS Core Risk during the AIUC team review.</p>
+      </div>
+    ` : '';
+
+    $('gapsAnalysis').innerHTML = gapsHtml + weakRisks + unmappedHtml || '<p>No significant gaps identified.</p>';
   }
 
   // Data Table (Browse tab)
