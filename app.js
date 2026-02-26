@@ -381,43 +381,9 @@
     $('tab-browse').classList.add('active');
     $('principleFilter').value = principle;
     $('aivssFilter').value = risk;
-    $('viewSelect').value = 'requirements';
     renderTable();
   };
 
-  // Gaps Analysis
-  function renderGaps() {
-    const gaps = data.meta?.coverage_gaps || [];
-    const gapsHtml = gaps.map(g => `
-      <div class="gap-card">
-        <h4><span class="gap-icon">⚠️</span> ${escapeHtml(g)}</h4>
-        <p>No AIUC-1 requirements currently map to this AIVSS Core Risk. This is expected as AIUC-1 focuses on single-agent systems.</p>
-      </div>
-    `).join('');
-
-    const riskCounts = getAIUCRiskCounts();
-    
-    const weakRisks = Object.entries(riskCounts)
-      .filter(([_, count]) => count <= 3 && count > 0)
-      .map(([risk, count]) => `
-        <div class="gap-card">
-          <h4><span class="gap-icon">📊</span> ${escapeHtml(risk)}</h4>
-          <p>Only ${count} AIUC-confirmed requirement(s) mapped. Consider if additional coverage is needed.</p>
-        </div>
-      `).join('');
-
-    const totalReq = data.requirements.length;
-    const mappedCount = Object.values(riskCounts).reduce((a, b) => a + b, 0);
-    const unmappedCount = totalReq - mappedCount;
-    const unmappedHtml = unmappedCount > 0 ? `
-      <div class="gap-card">
-        <h4><span class="gap-icon">📋</span> ${unmappedCount} Unmapped Requirements</h4>
-        <p>${unmappedCount} of ${totalReq} AIUC-1 requirements were not mapped to any AIVSS Core Risk during the AIUC team review.</p>
-      </div>
-    ` : '';
-
-    $('gapsAnalysis').innerHTML = gapsHtml + weakRisks + unmappedHtml || '<p>No significant gaps identified.</p>';
-  }
 
   // Data Table (Browse tab)
   function buildFilters() {
@@ -441,28 +407,16 @@
   }
 
   function currentRows() {
-    const view = $("viewSelect").value;
-    return view === "requirements" ? data.requirements : data.controls;
+    return data.requirements;
   }
 
-  function columnsFor(view) {
-    if (view === "requirements") {
-      return [
-        { k: "RequirementID", label: "ID" },
-        { k: "Principle", label: "Principle" },
-        { k: "RequirementTitle", label: "Title" },
-        { k: "AIVSS_Primary", label: "AIVSS Primary" },
-        { k: "AIVSS_Secondary", label: "Secondary" },
-        { k: "Confidence", label: "Conf" },
-        { k: "Review_Priority", label: "Review" },
-      ];
-    }
+  function columnsFor() {
     return [
-      { k: "ControlID", label: "ID" },
-      { k: "RequirementID", label: "Req" },
-      { k: "EvidenceTitle", label: "Evidence" },
+      { k: "RequirementID", label: "ID" },
+      { k: "Principle", label: "Principle" },
+      { k: "RequirementTitle", label: "Title" },
       { k: "AIVSS_Primary", label: "AIVSS Primary" },
-      { k: "Control_Function", label: "Function" },
+      { k: "AIVSS_Secondary", label: "Secondary" },
       { k: "Confidence", label: "Conf" },
       { k: "Review_Priority", label: "Review" },
     ];
@@ -492,11 +446,10 @@
   }
 
   function renderTable() {
-    const view = $("viewSelect").value;
     const rows = currentRows().filter(matches);
     $("resultsCount").textContent = `${rows.length} result(s)`;
 
-    const cols = columnsFor(view);
+    const cols = columnsFor();
     $("resultsTable").querySelector("thead").innerHTML = 
       `<tr>${cols.map(c => `<th>${escapeHtml(c.label)}</th>`).join("")}</tr>`;
 
@@ -512,7 +465,7 @@
         if (c.k === "AIVSS_Primary" && val) {
           return `<td><span class="chip" style="border-color:${RISK_COLORS[val] || 'var(--border)'}">${escapeHtml(val?.substring(0, 25))}${val?.length > 25 ? '...' : ''}</span></td>`;
         }
-        if ((c.k === "RequirementTitle" || c.k === "EvidenceTitle") && val) {
+        if (c.k === "RequirementTitle" && val) {
           return `<td title="${escapeHtml(val)}">${escapeHtml(val?.substring(0, 50))}${val?.length > 50 ? '...' : ''}</td>`;
         }
         return `<td>${escapeHtml(val ?? "")}</td>`;
@@ -525,18 +478,18 @@
     $("resultsTable").querySelectorAll("tbody tr").forEach(tr => {
       tr.addEventListener("click", () => {
         const idx = Number(tr.getAttribute("data-idx"));
-        openDetails(rows[idx], view);
+        openDetails(rows[idx]);
       });
     });
 
-    $("exportBtn").onclick = () => exportCsv(rows, cols.map(c => c.k), view);
+    $("exportBtn").onclick = () => exportCsv(rows, cols.map(c => c.k));
   }
 
   function kv(label, value) {
     return `<div class="kv"><div class="k">${escapeHtml(label)}</div><div class="v">${value}</div></div>`;
   }
 
-  function openDetails(row, view) {
+  function openDetails(row) {
     const aars = (() => {
       try { return JSON.parse(row.AARS_Factors_Suggested || "{}"); }
       catch (e) { return {}; }
@@ -545,9 +498,7 @@
       ? `<pre>${escapeHtml(JSON.stringify(aars, null, 2))}</pre>` 
       : "<span class='chip'>None</span>";
 
-    const header = view === "requirements"
-      ? `<span class="chip">Requirement</span> <span class="chip">${escapeHtml(row.RequirementID)}</span> ${escapeHtml(row.RequirementTitle || "")}`
-      : `<span class="chip">Control</span> <span class="chip">${escapeHtml(row.ControlID)}</span> (Req ${escapeHtml(row.RequirementID)})`;
+    const header = `<span class="chip">Requirement</span> <span class="chip">${escapeHtml(row.RequirementID)}</span> ${escapeHtml(row.RequirementTitle || "")}`;
 
     const bodyParts = [];
     bodyParts.push(`<div style="margin-bottom:16px;font-size:14px;">${header}</div>`);
@@ -557,20 +508,10 @@
     bodyParts.push(kv("ASI Bridge", row.ASI_ID ? `<span class="chip">${escapeHtml(row.ASI_ID)}</span> ${escapeHtml(row.ASI_Title || "")}` : "<span class='chip'>None</span>"));
     bodyParts.push(kv("Confidence", `<span class="chip ${String(row.Confidence || "").toLowerCase()}">${escapeHtml(row.Confidence || "")}</span>`));
     bodyParts.push(kv("Review Priority", `<span class="chip">${escapeHtml(row.Review_Priority || "")}</span>`));
-
-    if (view !== "requirements") {
-      bodyParts.push(kv("Control Function", `<span class="chip">${escapeHtml(row.Control_Function || "")}</span>`));
-      bodyParts.push(kv("Control Type", `<span class="chip">${escapeHtml(row.Control_Type || "")}</span>`));
-      bodyParts.push(kv("Evidence Title", `<pre>${escapeHtml(row.EvidenceTitle || "")}</pre>`));
-      bodyParts.push(kv("Control Text", `<pre>${escapeHtml(row.ControlText || "")}</pre>`));
-      bodyParts.push(kv("Typical Evidence", `<pre>${escapeHtml(row.TypicalEvidence || "")}</pre>`));
-    } else {
-      bodyParts.push(kv("Full Requirement", `<pre>${escapeHtml(row.FullRequirement || "")}</pre>`));
-      bodyParts.push(kv("Application", escapeHtml(row.Application || "")));
-      bodyParts.push(kv("Frequency", escapeHtml(row.Frequency || "")));
-      bodyParts.push(kv("Capabilities", escapeHtml(row.Capabilities || "")));
-    }
-
+    bodyParts.push(kv("Full Requirement", `<pre>${escapeHtml(row.FullRequirement || "")}</pre>`));
+    bodyParts.push(kv("Application", escapeHtml(row.Application || "")));
+    bodyParts.push(kv("Frequency", escapeHtml(row.Frequency || "")));
+    bodyParts.push(kv("Capabilities", escapeHtml(row.Capabilities || "")));
     bodyParts.push(kv("Rationale", `<pre>${escapeHtml(row.Rationale || "")}</pre>`));
     bodyParts.push(kv("AARS Factors", aarsPretty));
 
@@ -583,7 +524,7 @@
     $("closeDetails").onclick = () => $("detailsPane").classList.remove("open");
   }
 
-  function exportCsv(rows, keys, view) {
+  function exportCsv(rows, keys) {
     const header = keys.join(",");
     const lines = rows.map(r => {
       return keys.map(k => {
@@ -599,7 +540,7 @@
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `aiuc_aivss_${view}_filtered.csv`;
+    a.download = "aiuc_aivss_requirements_filtered.csv";
     a.click();
     URL.revokeObjectURL(url);
   }
@@ -614,7 +555,6 @@
     });
 
     $("resetBtn").onclick = () => {
-      $("viewSelect").value = "controls";
       $("aivssFilter").value = "";
       $("asiFilter").value = "";
       $("principleFilter").value = "";
@@ -637,7 +577,6 @@
     renderSankey();
     renderASIBridge();
     renderHeatmap();
-    renderGaps();
     buildFilters();
     wire();
     renderTable();

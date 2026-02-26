@@ -71,23 +71,13 @@
         <p class="chart-desc">Cell intensity shows count of requirements. Click a cell to see details.</p>
         <div id="heatmapMatrix" class="heatmap-container"></div>
       </div>
-      <div class="chart-card full">
-        <h3>Coverage Gaps Analysis</h3>
-        <div id="gapsAnalysis" class="gaps-analysis"></div>
-      </div>
     </section>
 
     <!-- Tab: Browse Data -->
     <section class="tab-content" id="tab-browse">
       <section class="controls">
         <div class="row">
-          <div class="field">
-            <label>View</label>
-            <select id="viewSelect">
-              <option value="controls">Controls & Evidence</option>
-              <option value="requirements">Requirements</option>
-            </select>
-          </div>
+          <input type="hidden" id="viewSelect" value="requirements"/>
 
           <div class="field">
             <label>AIVSS Core Risk</label>
