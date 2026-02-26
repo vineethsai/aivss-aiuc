@@ -1,14 +1,13 @@
 window.CROSSWALK_DATA = {
   "meta": {
-    "generated_at": "2026-02-03T23:30:00",
-    "aiuc_workbook": "AIUC-1 _ January, 2026 version.xlsx",
+    "generated_at": "2026-02-26T00:00:00",
+    "aiuc_workbook": "AIUC-AIVSS Reviewed Crosswalk.xlsx",
     "aivss_doc": "AIVSS Scoring System For OWASP Agentic AI Core Security Risks v0.5",
     "asi_doc": "OWASP Top 10 For Agentic Applications 2026 (Dec 2025)",
-    "mapping_version": "v5 (publication-ready: full crosswalk review completed)",
-    "scope_notes": "AIUC-1 (Jan 2026) focuses on single-agent AI systems. Multi-agent orchestration and agent identity impersonation scenarios are not explicitly covered in the current AIUC scope.",
+    "mapping_version": "v6 (AIUC team reviewed crosswalk applied)",
+    "scope_notes": "AIUC-1 (Jan 2026) focuses on single-agent AI systems. Multi-agent orchestration scenarios are not explicitly covered in the current AIUC scope. Agent Identity Impersonation now has 2 requirements mapped via AIUC review.",
     "coverage_gaps": [
-      "Agent Orchestration & Multi-Agent Exploitation",
-      "Agent Identity Impersonation"
+      "Agent Orchestration & Multi-Agent Exploitation"
     ]
   },
   "aivss_core_risks": [
@@ -78,17 +77,17 @@ window.CROSSWALK_DATA = {
   "summary": [
     {
       "AIVSS Core Risk": "Agentic AI Tool Misuse",
-      "Requirements (count)": 4,
-      "Controls/Evidence (count)": 9
+      "Requirements (count)": 3,
+      "Controls/Evidence (count)": 8
     },
     {
       "AIVSS Core Risk": "Agent Access Control Violation",
-      "Requirements (count)": 6,
+      "Requirements (count)": 5,
       "Controls/Evidence (count)": 18
     },
     {
       "AIVSS Core Risk": "Agent Cascading Failures",
-      "Requirements (count)": 7,
+      "Requirements (count)": 6,
       "Controls/Evidence (count)": 5
     },
     {
@@ -98,13 +97,13 @@ window.CROSSWALK_DATA = {
     },
     {
       "AIVSS Core Risk": "Agent Identity Impersonation",
-      "Requirements (count)": 0,
+      "Requirements (count)": 2,
       "Controls/Evidence (count)": 0
     },
     {
       "AIVSS Core Risk": "Agent Memory & Context Manipulation",
-      "Requirements (count)": 4,
-      "Controls/Evidence (count)": 4
+      "Requirements (count)": 3,
+      "Controls/Evidence (count)": 2
     },
     {
       "AIVSS Core Risk": "Insecure Agent Critical Systems Interaction",
@@ -113,18 +112,18 @@ window.CROSSWALK_DATA = {
     },
     {
       "AIVSS Core Risk": "Agent Supply Chain & Dependency Risk",
-      "Requirements (count)": 6,
-      "Controls/Evidence (count)": 16
+      "Requirements (count)": 7,
+      "Controls/Evidence (count)": 14
     },
     {
       "AIVSS Core Risk": "Agent Untraceability",
       "Requirements (count)": 12,
-      "Controls/Evidence (count)": 63
+      "Controls/Evidence (count)": 61
     },
     {
       "AIVSS Core Risk": "Agent Goal & Instruction Manipulation",
-      "Requirements (count)": 9,
-      "Controls/Evidence (count)": 21
+      "Requirements (count)": 10,
+      "Controls/Evidence (count)": 18
     }
   ],
   "requirements": [
@@ -178,7 +177,7 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": "Agent Memory & Context Manipulation",
+      "AIVSS_Primary": "Agent Access Control Violation",
       "AIVSS_Secondary": null,
       "ASI_ID": "ASI06",
       "ASI_Title": "Memory & Context Poisoning",
@@ -199,7 +198,7 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": "Agent Access Control Violation",
+      "AIVSS_Primary": "Insecure Agent Critical Systems Interaction",
       "AIVSS_Secondary": null,
       "ASI_ID": null,
       "ASI_Title": null,
@@ -284,7 +283,7 @@ window.CROSSWALK_DATA = {
       "Frequency": "Every 3 months",
       "Capabilities": "Universal",
       "AIVSS_Primary": "Agent Goal & Instruction Manipulation",
-      "AIVSS_Secondary": "Agent Untraceability",
+      "AIVSS_Secondary": "Agent Cascading Failures",
       "ASI_ID": "ASI01",
       "ASI_Title": "Agent Goal Hijack",
       "Bridge_Used": "N",
@@ -388,8 +387,8 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 12 months",
       "Capabilities": "Automation",
-      "AIVSS_Primary": "Agent Memory & Context Manipulation",
-      "AIVSS_Secondary": null,
+      "AIVSS_Primary": "Agent Access Control Violation",
+      "AIVSS_Secondary": "Agent Orchestration & Multi-Agent Exploitation",
       "ASI_ID": "ASI06",
       "ASI_Title": "Memory & Context Poisoning",
       "Bridge_Used": "N",
@@ -430,7 +429,7 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": "Agent Access Control Violation",
+      "AIVSS_Primary": "Agent Memory & Context Manipulation",
       "AIVSS_Secondary": null,
       "ASI_ID": "ASI03",
       "ASI_Title": "Identity & Privilege Abuse",
@@ -598,7 +597,7 @@ window.CROSSWALK_DATA = {
       "Application": "Optional",
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": "Agent Cascading Failures",
+      "AIVSS_Primary": "Agent Untraceability",
       "AIVSS_Secondary": "Agent Untraceability",
       "ASI_ID": "ASI08",
       "ASI_Title": "Cascading Failures",
@@ -703,7 +702,7 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 3 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": "Agent Supply Chain & Dependency Risk",
+      "AIVSS_Primary": "Agent Cascading Failures",
       "AIVSS_Secondary": null,
       "ASI_ID": "ASI04",
       "ASI_Title": "Agentic Supply Chain Vulnerabilities",
@@ -1060,7 +1059,7 @@ window.CROSSWALK_DATA = {
       "Application": "Optional",
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": "Agent Untraceability",
+      "AIVSS_Primary": "Agent Supply Chain & Dependency Risk",
       "AIVSS_Secondary": null,
       "ASI_ID": null,
       "ASI_Title": null,
@@ -1123,7 +1122,7 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": "Agent Untraceability",
+      "AIVSS_Primary": "Agent Identity Impersonation",
       "AIVSS_Secondary": null,
       "ASI_ID": null,
       "ASI_Title": null,
@@ -1165,7 +1164,7 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 12 months",
       "Capabilities": "Text-generation, Automation, Voice-generation",
-      "AIVSS_Primary": "Agentic AI Tool Misuse",
+      "AIVSS_Primary": "Agent Identity Impersonation",
       "AIVSS_Secondary": "Agent Access Control Violation",
       "ASI_ID": null,
       "ASI_Title": null,
