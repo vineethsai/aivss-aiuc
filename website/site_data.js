@@ -5,7 +5,7 @@ window.CROSSWALK_DATA = {
     "aivss_doc": "AIVSS Scoring System For OWASP Agentic AI Core Security Risks v0.5",
     "asi_doc": "OWASP Top 10 For Agentic Applications 2026 (Dec 2025)",
     "mapping_version": "v7 (AIUC team reviewed - only confirmed mappings)",
-    "scope_notes": "AIUC-1 (Jan 2026) focuses on single-agent AI systems. Of 51 requirements, 24 are mapped to AIVSS Core Risks by AIUC team review (27 remain unmapped).",
+    "scope_notes": "AIUC-1 (Jan 2026) focuses on single-agent AI systems. Of 51 requirements, 25 are mapped to AIVSS Core Risks by AIUC team review (26 remain unmapped).",
     "coverage_gaps": []
   },
   "aivss_core_risks": [
@@ -90,7 +90,7 @@ window.CROSSWALK_DATA = {
     },
     {
       "AIVSS Core Risk": "Agent Orchestration & Multi-Agent Exploitation",
-      "Requirements (count)": 0,
+      "Requirements (count)": 1,
       "Controls/Evidence (count)": 0
     },
     {
@@ -133,8 +133,8 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": null,
-      "AIVSS_Secondary": null,
+      "AIVSS_Primary": "Agent Memory & Context Manipulation",
+      "AIVSS_Secondary": "Agent Untraceability",
       "ASI_ID": null,
       "ASI_Title": null,
       "Bridge_Used": "N",
@@ -144,7 +144,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "A002",
@@ -154,7 +155,7 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": null,
+      "AIVSS_Primary": "Agent Untraceability",
       "AIVSS_Secondary": null,
       "ASI_ID": null,
       "ASI_Title": null,
@@ -165,7 +166,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "A003",
@@ -186,7 +188,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "A004",
@@ -207,7 +210,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "P2",
       "Review_Checks_Failed": "WeakSignals",
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "A005",
@@ -217,8 +221,8 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": null,
-      "AIVSS_Secondary": null,
+      "AIVSS_Primary": "Agent Access Control Violation",
+      "AIVSS_Secondary": "Agent Memory & Context Manipulation",
       "ASI_ID": null,
       "ASI_Title": null,
       "Bridge_Used": "N",
@@ -228,7 +232,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "A006",
@@ -238,8 +243,8 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": null,
-      "AIVSS_Secondary": null,
+      "AIVSS_Primary": "Agent Access Control Violation",
+      "AIVSS_Secondary": "Agent Memory & Context Manipulation",
       "ASI_ID": null,
       "ASI_Title": null,
       "Bridge_Used": "N",
@@ -249,7 +254,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "A007",
@@ -259,8 +265,8 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 12 months",
       "Capabilities": "Text-generation, Voice-generation, Image-generation",
-      "AIVSS_Primary": null,
-      "AIVSS_Secondary": null,
+      "AIVSS_Primary": "Agent Supply Chain & Dependency Risk",
+      "AIVSS_Secondary": "Agent Untraceability",
       "ASI_ID": "ASI04",
       "ASI_Title": "Agentic Supply Chain Vulnerabilities",
       "Bridge_Used": "N",
@@ -270,7 +276,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "B001",
@@ -291,7 +298,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "B002",
@@ -312,7 +320,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "B003",
@@ -322,8 +331,8 @@ window.CROSSWALK_DATA = {
       "Application": "Optional",
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": null,
-      "AIVSS_Secondary": null,
+      "AIVSS_Primary": "Agent Supply Chain & Dependency Risk",
+      "AIVSS_Secondary": "Agent Goal & Instruction Manipulation",
       "ASI_ID": "ASI04",
       "ASI_Title": "Agentic Supply Chain Vulnerabilities",
       "Bridge_Used": "N",
@@ -333,7 +342,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "B004",
@@ -344,7 +354,7 @@ window.CROSSWALK_DATA = {
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
       "AIVSS_Primary": "Agentic AI Tool Misuse",
-      "AIVSS_Secondary": null,
+      "AIVSS_Secondary": "Agent Access Control Violation",
       "ASI_ID": null,
       "ASI_Title": null,
       "Bridge_Used": "N",
@@ -354,7 +364,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "B005",
@@ -365,7 +376,7 @@ window.CROSSWALK_DATA = {
       "Frequency": "Every 12 months",
       "Capabilities": "Text-generation, Voice-generation, Image-generation",
       "AIVSS_Primary": "Agent Goal & Instruction Manipulation",
-      "AIVSS_Secondary": null,
+      "AIVSS_Secondary": "Agent Untraceability",
       "ASI_ID": null,
       "ASI_Title": null,
       "Bridge_Used": "N",
@@ -375,7 +386,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": "Y",
-      "Review_Change_Notes": "Manual review: input filtering mitigates prompt injection/goal hijack; documentation/audit secondary."
+      "Review_Change_Notes": "Manual review: input filtering mitigates prompt injection/goal hijack; documentation/audit secondary.",
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "B006",
@@ -396,7 +408,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "B007",
@@ -406,8 +419,8 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 3 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": null,
-      "AIVSS_Secondary": null,
+      "AIVSS_Primary": "Agent Access Control Violation",
+      "AIVSS_Secondary": "Agent Untraceability",
       "ASI_ID": "ASI03",
       "ASI_Title": "Identity & Privilege Abuse",
       "Bridge_Used": "N",
@@ -417,7 +430,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "B008",
@@ -438,7 +452,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "B009",
@@ -448,8 +463,8 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 12 months",
       "Capabilities": "Text-generation, Voice-generation",
-      "AIVSS_Primary": null,
-      "AIVSS_Secondary": null,
+      "AIVSS_Primary": "Agent Memory & Context Manipulation",
+      "AIVSS_Secondary": "Agent Untraceability",
       "ASI_ID": null,
       "ASI_Title": null,
       "Bridge_Used": "N",
@@ -459,7 +474,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": "Y",
-      "Review_Change_Notes": "Manual review: output obfuscation to prevent leakage aligns with memory/context (cross-user/session leakage); user notices/audit secondary."
+      "Review_Change_Notes": "Manual review: output obfuscation to prevent leakage aligns with memory/context (cross-user/session leakage); user notices/audit secondary.",
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "C001",
@@ -469,8 +485,8 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 3 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": null,
-      "AIVSS_Secondary": null,
+      "AIVSS_Primary": "Agent Goal & Instruction Manipulation",
+      "AIVSS_Secondary": "Agentic AI Tool Misuse",
       "ASI_ID": null,
       "ASI_Title": null,
       "Bridge_Used": "N",
@@ -480,7 +496,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "C002",
@@ -490,8 +507,8 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": null,
-      "AIVSS_Secondary": null,
+      "AIVSS_Primary": "Agent Supply Chain & Dependency Risk",
+      "AIVSS_Secondary": "Agent Untraceability",
       "ASI_ID": null,
       "ASI_Title": null,
       "Bridge_Used": "N",
@@ -501,7 +518,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "C003",
@@ -512,7 +530,7 @@ window.CROSSWALK_DATA = {
       "Frequency": "Every 12 months",
       "Capabilities": "Text-generation, Voice-generation, Image-generation",
       "AIVSS_Primary": "Agent Goal & Instruction Manipulation",
-      "AIVSS_Secondary": null,
+      "AIVSS_Secondary": "Insecure Agent Critical Systems Interaction",
       "ASI_ID": null,
       "ASI_Title": null,
       "Bridge_Used": "N",
@@ -522,7 +540,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": "Y",
-      "Review_Change_Notes": "Manual review: harmful outputs often induced by prompt/goal manipulation; critical interaction secondary when outputs drive unsafe actions."
+      "Review_Change_Notes": "Manual review: harmful outputs often induced by prompt/goal manipulation; critical interaction secondary when outputs drive unsafe actions.",
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "C004",
@@ -533,7 +552,7 @@ window.CROSSWALK_DATA = {
       "Frequency": "Every 12 months",
       "Capabilities": "Text-generation, Voice-generation",
       "AIVSS_Primary": "Agent Goal & Instruction Manipulation",
-      "AIVSS_Secondary": null,
+      "AIVSS_Secondary": "Agent Untraceability",
       "ASI_ID": "ASI01",
       "ASI_Title": "Agent Goal Hijack",
       "Bridge_Used": "N",
@@ -543,7 +562,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": "LowConfidence; WeakSignals",
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "C005",
@@ -554,7 +574,7 @@ window.CROSSWALK_DATA = {
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
       "AIVSS_Primary": "Agent Goal & Instruction Manipulation",
-      "AIVSS_Secondary": null,
+      "AIVSS_Secondary": "Agent Cascading Failures",
       "ASI_ID": "ASI01",
       "ASI_Title": "Agent Goal Hijack",
       "Bridge_Used": "N",
@@ -564,7 +584,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": "LowConfidence; WeakSignals",
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "C006",
@@ -575,7 +596,7 @@ window.CROSSWALK_DATA = {
       "Frequency": "Every 3 months",
       "Capabilities": "Universal",
       "AIVSS_Primary": "Insecure Agent Critical Systems Interaction",
-      "AIVSS_Secondary": null,
+      "AIVSS_Secondary": "Agent Cascading Failures",
       "ASI_ID": "ASI05",
       "ASI_Title": "Unexpected Code Execution (RCE)",
       "Bridge_Used": "N",
@@ -585,7 +606,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": "LowConfidence; WeakSignals",
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "C007",
@@ -596,7 +618,7 @@ window.CROSSWALK_DATA = {
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
       "AIVSS_Primary": "Agent Untraceability",
-      "AIVSS_Secondary": null,
+      "AIVSS_Secondary": "Agent Untraceability",
       "ASI_ID": "ASI08",
       "ASI_Title": "Cascading Failures",
       "Bridge_Used": "N",
@@ -606,7 +628,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "C008",
@@ -617,7 +640,7 @@ window.CROSSWALK_DATA = {
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
       "AIVSS_Primary": "Agent Untraceability",
-      "AIVSS_Secondary": null,
+      "AIVSS_Secondary": "Agent Goal & Instruction Manipulation",
       "ASI_ID": "ASI10",
       "ASI_Title": "Rogue Agents",
       "Bridge_Used": "N",
@@ -627,7 +650,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "C009",
@@ -637,8 +661,8 @@ window.CROSSWALK_DATA = {
       "Application": "Optional",
       "Frequency": "Every 3 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": null,
-      "AIVSS_Secondary": null,
+      "AIVSS_Primary": "Agent Cascading Failures",
+      "AIVSS_Secondary": "Agent Goal & Instruction Manipulation",
       "ASI_ID": "ASI08",
       "ASI_Title": "Cascading Failures",
       "Bridge_Used": "N",
@@ -648,7 +672,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": "Y",
-      "Review_Change_Notes": "Manual review: real-time user intervention/stop mechanisms contain cascade/goal-hijack impacts."
+      "Review_Change_Notes": "Manual review: real-time user intervention/stop mechanisms contain cascade/goal-hijack impacts.",
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "C010",
@@ -658,8 +683,8 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 3 months",
       "Capabilities": "Text-generation, Voice-generation, Image-generation",
-      "AIVSS_Primary": null,
-      "AIVSS_Secondary": null,
+      "AIVSS_Primary": "Agent Goal & Instruction Manipulation",
+      "AIVSS_Secondary": "Agent Untraceability",
       "ASI_ID": "ASI01",
       "ASI_Title": "Agent Goal Hijack",
       "Bridge_Used": "N",
@@ -669,7 +694,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "C011",
@@ -679,8 +705,8 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 3 months",
       "Capabilities": "Text-generation, Voice-generation",
-      "AIVSS_Primary": null,
-      "AIVSS_Secondary": null,
+      "AIVSS_Primary": "Agent Goal & Instruction Manipulation",
+      "AIVSS_Secondary": "Agent Untraceability",
       "ASI_ID": "ASI01",
       "ASI_Title": "Agent Goal Hijack",
       "Bridge_Used": "N",
@@ -690,7 +716,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "C012",
@@ -711,7 +738,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "D001",
@@ -721,8 +749,8 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 12 months",
       "Capabilities": "Text-generation, Voice-generation",
-      "AIVSS_Primary": null,
-      "AIVSS_Secondary": null,
+      "AIVSS_Primary": "Agent Cascading Failures",
+      "AIVSS_Secondary": "Agent Untraceability",
       "ASI_ID": null,
       "ASI_Title": null,
       "Bridge_Used": "N",
@@ -732,7 +760,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": "Y",
-      "Review_Change_Notes": "Manual review: hallucination prevention reduces hallucination propagation/cascades; citations/traceability secondary."
+      "Review_Change_Notes": "Manual review: hallucination prevention reduces hallucination propagation/cascades; citations/traceability secondary.",
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "D002",
@@ -742,8 +771,8 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 3 months",
       "Capabilities": "Text-generation, Voice-generation",
-      "AIVSS_Primary": null,
-      "AIVSS_Secondary": null,
+      "AIVSS_Primary": "Agent Cascading Failures",
+      "AIVSS_Secondary": "Agent Untraceability",
       "ASI_ID": "ASI08",
       "ASI_Title": "Cascading Failures",
       "Bridge_Used": "N",
@@ -753,7 +782,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "D003",
@@ -764,7 +794,7 @@ window.CROSSWALK_DATA = {
       "Frequency": "Every 12 months",
       "Capabilities": "Automation",
       "AIVSS_Primary": "Agentic AI Tool Misuse",
-      "AIVSS_Secondary": null,
+      "AIVSS_Secondary": "Agent Access Control Violation",
       "ASI_ID": "ASI02",
       "ASI_Title": "Tool Abuse",
       "Bridge_Used": "N",
@@ -774,7 +804,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "D004",
@@ -785,7 +816,7 @@ window.CROSSWALK_DATA = {
       "Frequency": "Every 3 months",
       "Capabilities": "Automation",
       "AIVSS_Primary": "Agentic AI Tool Misuse",
-      "AIVSS_Secondary": null,
+      "AIVSS_Secondary": "Agent Access Control Violation",
       "ASI_ID": "ASI02",
       "ASI_Title": "Tool Abuse",
       "Bridge_Used": "N",
@@ -795,7 +826,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "E001",
@@ -805,8 +837,8 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": null,
-      "AIVSS_Secondary": null,
+      "AIVSS_Primary": "Agent Cascading Failures",
+      "AIVSS_Secondary": "Agent Untraceability",
       "ASI_ID": "ASI08",
       "ASI_Title": "Cascading Failures",
       "Bridge_Used": "N",
@@ -816,7 +848,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "E002",
@@ -826,8 +859,8 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 12 months",
       "Capabilities": "Text-generation, Voice-generation, Image-generation",
-      "AIVSS_Primary": null,
-      "AIVSS_Secondary": null,
+      "AIVSS_Primary": "Agent Goal & Instruction Manipulation",
+      "AIVSS_Secondary": "Agent Cascading Failures",
       "ASI_ID": "ASI01",
       "ASI_Title": "Agent Goal Hijack",
       "Bridge_Used": "N",
@@ -837,7 +870,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "E003",
@@ -847,8 +881,8 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 12 months",
       "Capabilities": "Text-generation, Voice-generation",
-      "AIVSS_Primary": null,
-      "AIVSS_Secondary": null,
+      "AIVSS_Primary": "Agent Cascading Failures",
+      "AIVSS_Secondary": "Agent Untraceability",
       "ASI_ID": "ASI08",
       "ASI_Title": "Cascading Failures",
       "Bridge_Used": "N",
@@ -858,7 +892,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "E004",
@@ -868,7 +903,7 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": null,
+      "AIVSS_Primary": "Agent Untraceability",
       "AIVSS_Secondary": null,
       "ASI_ID": null,
       "ASI_Title": null,
@@ -879,7 +914,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "P2",
       "Review_Checks_Failed": "WeakSignals",
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "E005",
@@ -890,7 +926,7 @@ window.CROSSWALK_DATA = {
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
       "AIVSS_Primary": "Agent Supply Chain & Dependency Risk",
-      "AIVSS_Secondary": null,
+      "AIVSS_Secondary": "Agent Access Control Violation",
       "ASI_ID": "ASI04",
       "ASI_Title": "Agentic Supply Chain Vulnerabilities",
       "Bridge_Used": "N",
@@ -900,7 +936,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "E006",
@@ -911,7 +948,7 @@ window.CROSSWALK_DATA = {
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
       "AIVSS_Primary": "Agent Supply Chain & Dependency Risk",
-      "AIVSS_Secondary": null,
+      "AIVSS_Secondary": "Agent Untraceability",
       "ASI_ID": null,
       "ASI_Title": null,
       "Bridge_Used": "N",
@@ -921,7 +958,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "E007",
@@ -931,7 +969,7 @@ window.CROSSWALK_DATA = {
       "Application": "Optional",
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": null,
+      "AIVSS_Primary": "Agent Untraceability",
       "AIVSS_Secondary": null,
       "ASI_ID": null,
       "ASI_Title": null,
@@ -942,7 +980,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "P2",
       "Review_Checks_Failed": "WeakSignals",
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "E008",
@@ -952,7 +991,7 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": null,
+      "AIVSS_Primary": "Agent Untraceability",
       "AIVSS_Secondary": null,
       "ASI_ID": null,
       "ASI_Title": null,
@@ -963,7 +1002,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "P2",
       "Review_Checks_Failed": "WeakSignals",
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "E009",
@@ -974,7 +1014,7 @@ window.CROSSWALK_DATA = {
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
       "AIVSS_Primary": "Agent Supply Chain & Dependency Risk",
-      "AIVSS_Secondary": null,
+      "AIVSS_Secondary": "Agent Untraceability",
       "ASI_ID": "ASI04",
       "ASI_Title": "Agentic Supply Chain Vulnerabilities",
       "Bridge_Used": "N",
@@ -984,7 +1024,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "E010",
@@ -994,7 +1035,7 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": null,
+      "AIVSS_Primary": "Agent Untraceability",
       "AIVSS_Secondary": null,
       "ASI_ID": null,
       "ASI_Title": null,
@@ -1005,7 +1046,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "P2",
       "Review_Checks_Failed": "WeakSignals",
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "E011",
@@ -1015,7 +1057,7 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": null,
+      "AIVSS_Primary": "Agent Untraceability",
       "AIVSS_Secondary": null,
       "ASI_ID": null,
       "ASI_Title": null,
@@ -1026,7 +1068,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "P2",
       "Review_Checks_Failed": "WeakSignals",
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "E012",
@@ -1036,7 +1079,7 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 6 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": null,
+      "AIVSS_Primary": "Agent Untraceability",
       "AIVSS_Secondary": null,
       "ASI_ID": null,
       "ASI_Title": null,
@@ -1047,7 +1090,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "E013",
@@ -1068,7 +1112,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "P2",
       "Review_Checks_Failed": "WeakSignals",
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "E014",
@@ -1078,7 +1123,7 @@ window.CROSSWALK_DATA = {
       "Application": "Optional",
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": null,
+      "AIVSS_Primary": "Agent Untraceability",
       "AIVSS_Secondary": null,
       "ASI_ID": null,
       "ASI_Title": null,
@@ -1089,7 +1134,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "P2",
       "Review_Checks_Failed": "WeakSignals",
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "E015",
@@ -1110,7 +1156,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "E016",
@@ -1131,7 +1178,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "P2",
       "Review_Checks_Failed": "WeakSignals",
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "E017",
@@ -1141,7 +1189,7 @@ window.CROSSWALK_DATA = {
       "Application": "Optional",
       "Frequency": "Every 12 months",
       "Capabilities": "Universal",
-      "AIVSS_Primary": null,
+      "AIVSS_Primary": "Agent Untraceability",
       "AIVSS_Secondary": null,
       "ASI_ID": null,
       "ASI_Title": null,
@@ -1152,7 +1200,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": null,
-      "Review_Change_Notes": null
+      "Review_Change_Notes": null,
+      "AIUC_Mapped": false
     },
     {
       "RequirementID": "F001",
@@ -1163,7 +1212,7 @@ window.CROSSWALK_DATA = {
       "Frequency": "Every 12 months",
       "Capabilities": "Text-generation, Automation, Voice-generation",
       "AIVSS_Primary": "Agent Identity Impersonation",
-      "AIVSS_Secondary": null,
+      "AIVSS_Secondary": "Agent Access Control Violation",
       "ASI_ID": null,
       "ASI_Title": null,
       "Bridge_Used": "N",
@@ -1173,7 +1222,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": "Y",
-      "Review_Change_Notes": "Manual review: cyber misuse guardrails primarily address tool misuse; access control secondary (least privilege/abuse)."
+      "Review_Change_Notes": "Manual review: cyber misuse guardrails primarily address tool misuse; access control secondary (least privilege/abuse).",
+      "AIUC_Mapped": true
     },
     {
       "RequirementID": "F002",
@@ -1183,8 +1233,8 @@ window.CROSSWALK_DATA = {
       "Application": "Mandatory",
       "Frequency": "Every 12 months",
       "Capabilities": "Text-generation, Voice-generation, Image-generation",
-      "AIVSS_Primary": null,
-      "AIVSS_Secondary": null,
+      "AIVSS_Primary": "Insecure Agent Critical Systems Interaction",
+      "AIVSS_Secondary": "Agentic AI Tool Misuse",
       "ASI_ID": null,
       "ASI_Title": null,
       "Bridge_Used": "N",
@@ -1194,7 +1244,8 @@ window.CROSSWALK_DATA = {
       "Review_Priority": "OK",
       "Review_Checks_Failed": null,
       "Review_Change_Flag": "Y",
-      "Review_Change_Notes": "Manual review: catastrophic misuse tied to critical/physical harm contexts; tool misuse secondary."
+      "Review_Change_Notes": "Manual review: catastrophic misuse tied to critical/physical harm contexts; tool misuse secondary.",
+      "AIUC_Mapped": false
     }
   ],
   "controls": [
