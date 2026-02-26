@@ -31,6 +31,21 @@
     }[s]));
   }
 
+  // AIUC mapping count: for each risk, count AIUC-confirmed primary.
+  // For risks with 0 primary, count AIUC-confirmed secondary instead.
+  function getAIUCRiskCounts() {
+    const mapped = data.requirements.filter(r => r.AIUC_Mapped);
+    const counts = {};
+    const risks = data.aivss_core_risks || [];
+    risks.forEach(risk => {
+      const primary = mapped.filter(r => r.AIVSS_Primary === risk).length;
+      counts[risk] = primary > 0
+        ? primary
+        : mapped.filter(r => r.AIVSS_Secondary === risk).length;
+    });
+    return counts;
+  }
+
   // Tab Navigation
   function initTabs() {
     $$('.tab').forEach(tab => {
@@ -58,10 +73,11 @@
   // Summary Cards
   function renderCards() {
     const totalReq = data.requirements.length;
-    const mappedReq = data.requirements.filter(r => r.AIVSS_Primary).length;
-    const unmappedReq = totalReq - mappedReq;
+    const riskCounts = getAIUCRiskCounts();
+    const mappedCount = Object.values(riskCounts).reduce((a, b) => a + b, 0);
+    const unmappedCount = totalReq - mappedCount;
     const totalCtrl = data.controls.length;
-    const highConf = [...data.requirements, ...data.controls].filter(r => r.Confidence === 'High').length;
+    const coveredRisks = Object.values(riskCounts).filter(c => c > 0).length;
 
     $("summaryCards").innerHTML = `
       <div class="card">
@@ -71,8 +87,8 @@
       </div>
       <div class="card">
         <h3>Mapped to AIVSS</h3>
-        <div class="big" style="color:var(--success)">${mappedReq}</div>
-        <div class="small">${unmappedReq} unmapped</div>
+        <div class="big" style="color:var(--success)">${mappedCount}</div>
+        <div class="small">${unmappedCount} unmapped</div>
       </div>
       <div class="card">
         <h3>Controls/Evidence</h3>
@@ -81,21 +97,16 @@
       </div>
       <div class="card">
         <h3>AIVSS Risks Covered</h3>
-        <div class="big" style="color:var(--accent)">${new Set(data.requirements.map(r => r.AIVSS_Primary).filter(Boolean)).size} / 10</div>
-        <div class="small">${(data.meta?.coverage_gaps || []).length} gap(s)</div>
+        <div class="big" style="color:var(--accent)">${coveredRisks} / 10</div>
+        <div class="small">${10 - coveredRisks} gap(s)</div>
       </div>
     `;
   }
 
   // Bar Charts
   function renderBarCharts() {
-    const reqByRisk = {};
+    const reqByRisk = getAIUCRiskCounts();
     const ctrlByRisk = {};
-    
-    data.requirements.forEach(r => {
-      if (r.AIVSS_Primary) reqByRisk[r.AIVSS_Primary] = (reqByRisk[r.AIVSS_Primary] || 0) + 1;
-      if (r.AIVSS_Secondary) reqByRisk[r.AIVSS_Secondary] = (reqByRisk[r.AIVSS_Secondary] || 0) + 1;
-    });
     
     data.controls.forEach(c => {
       if (c.AIVSS_Primary) ctrlByRisk[c.AIVSS_Primary] = (ctrlByRisk[c.AIVSS_Primary] || 0) + 1;
@@ -194,23 +205,25 @@
 
   // Sankey Diagram
   function renderSankey() {
-    const mappedReqs = data.requirements.filter(r => r.AIVSS_Primary);
+    const mapped = data.requirements.filter(r => r.AIUC_Mapped);
     const principles = uniq(data.requirements.map(r => r.Principle).filter(Boolean));
     const risks = data.aivss_core_risks || [];
     
-    // Count flows (primary + secondary)
+    // Determine which risks have primary AIUC mappings
+    const primaryPerRisk = {};
+    mapped.forEach(r => {
+      primaryPerRisk[r.AIVSS_Primary] = (primaryPerRisk[r.AIVSS_Primary] || 0) + 1;
+    });
+
+    // Count flows: primary always; secondary only for risks with 0 primary
     const flows = {};
-    const riskTotals = {};
-    mappedReqs.forEach(r => {
-      if (r.AIVSS_Primary) {
-        const key = `${r.Principle}|${r.AIVSS_Primary}`;
-        flows[key] = (flows[key] || 0) + 1;
-        riskTotals[r.AIVSS_Primary] = (riskTotals[r.AIVSS_Primary] || 0) + 1;
-      }
-      if (r.AIVSS_Secondary) {
-        const key = `${r.Principle}|${r.AIVSS_Secondary}`;
-        flows[key] = (flows[key] || 0) + 1;
-        riskTotals[r.AIVSS_Secondary] = (riskTotals[r.AIVSS_Secondary] || 0) + 1;
+    const riskTotals = getAIUCRiskCounts();
+    mapped.forEach(r => {
+      const pKey = `${r.Principle}|${r.AIVSS_Primary}`;
+      flows[pKey] = (flows[pKey] || 0) + 1;
+      if (r.AIVSS_Secondary && !primaryPerRisk[r.AIVSS_Secondary]) {
+        const sKey = `${r.Principle}|${r.AIVSS_Secondary}`;
+        flows[sKey] = (flows[sKey] || 0) + 1;
       }
     });
 
@@ -220,11 +233,11 @@
     const rightX = 700;
     const svgHeight = Math.max(principles.length, risks.length) * (nodeHeight + padding) + 100;
 
-    // Calculate positions
+    // Left nodes: count AIUC-mapped per principle
     const leftNodes = principles.map((p, i) => ({
       name: p,
       y: 50 + i * (nodeHeight + padding),
-      total: data.requirements.filter(r => r.Principle === p && r.AIVSS_Primary).length
+      total: mapped.filter(r => r.Principle === p).length
     }));
 
     const rightNodes = risks.map((r, i) => ({
@@ -306,20 +319,27 @@
   function renderHeatmap() {
     const principles = uniq(data.requirements.map(r => r.Principle).filter(Boolean));
     const risks = data.aivss_core_risks || [];
+    const mapped = data.requirements.filter(r => r.AIUC_Mapped);
     
-    // Build matrix (count both primary and secondary)
+    // Determine which risks lack primary AIUC mappings
+    const primaryPerRisk = {};
+    mapped.forEach(r => {
+      primaryPerRisk[r.AIVSS_Primary] = (primaryPerRisk[r.AIVSS_Primary] || 0) + 1;
+    });
+    
+    // Build matrix using AIUC counting logic
     const matrix = {};
     principles.forEach(p => {
       matrix[p] = {};
       risks.forEach(r => matrix[p][r] = 0);
     });
     
-    data.requirements.forEach(r => {
+    mapped.forEach(r => {
       if (r.Principle && r.AIVSS_Primary) {
-        matrix[r.Principle][r.AIVSS_Primary] = (matrix[r.Principle][r.AIVSS_Primary] || 0) + 1;
+        matrix[r.Principle][r.AIVSS_Primary]++;
       }
-      if (r.Principle && r.AIVSS_Secondary) {
-        matrix[r.Principle][r.AIVSS_Secondary] = (matrix[r.Principle][r.AIVSS_Secondary] || 0) + 1;
+      if (r.Principle && r.AIVSS_Secondary && !primaryPerRisk[r.AIVSS_Secondary]) {
+        matrix[r.Principle][r.AIVSS_Secondary]++;
       }
     });
 
@@ -375,28 +395,24 @@
       </div>
     `).join('');
 
-    // Find weakly covered risks (count primary + secondary)
-    const riskCounts = {};
-    data.requirements.forEach(r => {
-      if (r.AIVSS_Primary) riskCounts[r.AIVSS_Primary] = (riskCounts[r.AIVSS_Primary] || 0) + 1;
-      if (r.AIVSS_Secondary) riskCounts[r.AIVSS_Secondary] = (riskCounts[r.AIVSS_Secondary] || 0) + 1;
-    });
+    const riskCounts = getAIUCRiskCounts();
     
     const weakRisks = Object.entries(riskCounts)
       .filter(([_, count]) => count <= 3 && count > 0)
       .map(([risk, count]) => `
         <div class="gap-card">
           <h4><span class="gap-icon">📊</span> ${escapeHtml(risk)}</h4>
-          <p>Only ${count} requirement(s) mapped. Consider if additional coverage is needed.</p>
+          <p>Only ${count} AIUC-confirmed requirement(s) mapped. Consider if additional coverage is needed.</p>
         </div>
       `).join('');
 
-    // Show unmapped requirements count
-    const unmappedCount = data.requirements.filter(r => !r.AIVSS_Primary).length;
+    const totalReq = data.requirements.length;
+    const mappedCount = Object.values(riskCounts).reduce((a, b) => a + b, 0);
+    const unmappedCount = totalReq - mappedCount;
     const unmappedHtml = unmappedCount > 0 ? `
       <div class="gap-card">
         <h4><span class="gap-icon">📋</span> ${unmappedCount} Unmapped Requirements</h4>
-        <p>${unmappedCount} of ${data.requirements.length} AIUC-1 requirements were not mapped to any AIVSS Core Risk during the AIUC team review.</p>
+        <p>${unmappedCount} of ${totalReq} AIUC-1 requirements were not mapped to any AIVSS Core Risk during the AIUC team review.</p>
       </div>
     ` : '';
 
